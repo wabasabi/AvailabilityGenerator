@@ -1,0 +1,5 @@
+JavaMail API Example: http://www.tutorialspoint.com/javamail_api/javamail_api_send_email_with_attachment.htm
+
+Using Java Apache POI:
+  - Awful Java Excel R/W Example: http://examples.javacodegeeks.com/core-java/writeread-excel-files-in-java-example/
+  - Better Excel Example: http://howtodoinjava.com/2013/06/19/readingwriting-excel-files-in-java-poi-tutorial/

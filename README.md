@@ -1,7 +1,7 @@
 # AvailabilityGenerator
 This application will allow a user to use a GUI interface to generate an availability of their work hours for a 7 day work week.
 
-The application is being written in Java version 7 by Steven Gantz and Ryan Harrington using Eclipse Mars on Windows. 
+The application is being written in Java version 7 by Steven Gantz and Ryan Harrington using IntelliJ IDEA on Windows. 
 
 Future Features:
 - Allow ability to set days and times that are off limits.

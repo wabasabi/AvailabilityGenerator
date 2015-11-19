@@ -1,0 +1,2 @@
+# AvailabilityGenerator
+Stay tuned.

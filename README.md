@@ -11,3 +11,6 @@ Future Features:
 - Directly send email to user
   - "Enter password for application's email"
   - "Enter email address of recipient"
+
+GUI -> Data goes into Data Access Object -> used by -> Availability Generator (Gen takes DAO as parameter)
+  - Availability Generator is invoked on "Write local csv file" or "Send email" buttons.

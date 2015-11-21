@@ -1,21 +1,28 @@
+// Language imports
+import java.util.ArrayList;
+
 /**
- * Created by Steven Gantz on 11/19/2015.
+ * @author Steven Gantz
+ * @version 1.0 -
  * This container can be used to better
  * organize the Data Access Object for
  * later handling.
  */
-
-// Language imports
-import java.util.ArrayList;
-
 public class WorkDay {
 
     // Attributes
+    /**
+     * Contains the name of the work day
+     */
     private String workDayName;
-    ArrayList<Boolean> timeSlots;
 
     /**
-     * General Constructor
+     * List of all available time slots
+     */
+    private ArrayList<Boolean> timeSlots;
+
+    /**
+     * General Constructor,
      * Creates empty lists
      */
     WorkDay(String workDayName){
@@ -32,6 +39,7 @@ public class WorkDay {
 
     /**
      * Set parameter location to true
+     * @param i time slot boolean to be changed to true
      */
     public void setTrue(int i){
         timeSlots.set(i, true);
@@ -39,22 +47,44 @@ public class WorkDay {
 
     /**
      * Set parameter location to false
+     * @param i time slot boolean to be changed to false
      */
     public void setFalse(int i){
         timeSlots.set(i, false);
     }
 
     /**
-     * Day name getter and setter below
-     * @param workDayName
+     * Check boolean value of parameter location
+     * @param i time slot boolean to be returned
+     */
+    public boolean checkBooleanValue(int i){ return timeSlots.get(i);}
+
+    /**
+     * Day name setter
+     * @param workDayName String to set as work day name
      */
     public void setWorkDayName(String workDayName){
         this.workDayName = workDayName;
     }
+
+    /**
+     * Day name getter
+     */
     public String getWorkDayName(){
         return this.workDayName;
     }
 
-
+    /**
+     * Available method for debugging work days
+     * @return Workday in string representation
+     */
+    @Override
+    public String toString(){
+        // Generate String of 1s and 0s from time slot array of size 31
+        StringBuilder builder = new StringBuilder(31);
+        // Iterate through timeSlots and append each element as strings to builder
+        this.timeSlots.forEach(builder::append);
+        return this.workDayName + ":" + builder.toString();
+    }
 
 }

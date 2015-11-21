@@ -1,6 +1,13 @@
 // Required JavaMail imports
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 /**
@@ -18,6 +25,10 @@ public class CustomJavaMailer {
     private String senderID;
     private String username;
     private String password;
+    private String filename;
+
+    // Attribute to hold globally for manual sending
+    private Message message;
 
     /**
      * Due to the work being done in the constructor,
@@ -26,15 +37,17 @@ public class CustomJavaMailer {
      */
     public static class Builder{
 
-        //TODO
-        // Need to add default values for developer
-        // and allow for specific parameters to be specified
-
         // Parameters
         private String receiverID;
         private String senderID;
         private String username;
         private String password;
+        private String fileName;
+
+        public Builder fileName(String fileName){
+            this.fileName = fileName;
+            return this;
+        }
 
         public Builder receiverID(String receiverID){
             this.receiverID = receiverID;
@@ -70,74 +83,61 @@ public class CustomJavaMailer {
         senderID = builder.senderID;
         username = builder.username;
         password = builder.password;
+        filename = builder.fileName;
     }
 
-    public void generateEmail(){
-        // Host we are sending email through
-        //TODO
-        String host = "";
+    /**
+     * Generate an email object for sending
+     */
+    public void generateEmail() throws MessagingException{
 
         // Assign default properties
         Properties props = defaultProperties();
 
         // Retrieve the session object
-        Session session
-//
-//         Get the Session object.
-//        Session session = Session.getInstance(props,
-//                new javax.mail.Authenticator() {
-//                    protected PasswordAuthentication getPasswordAuthentication() {
-//                        return new PasswordAuthentication(username, password);
-//                    }
-//                });
-//
-//        try {
-//            // Create a default MimeMessage object.
-//            Message message = new MimeMessage(session);
-//
-//            // Set From: header field of the header.
-//            message.setFrom(new InternetAddress(from));
-//
-//            // Set To: header field of the header.
-//            message.setRecipients(Message.RecipientType.TO,
-//                    InternetAddress.parse(to));
-//
-//            // Set Subject: header field
-//            message.setSubject("Testing Subject");
-//
-//            // Create the message part
-//            BodyPart messageBodyPart = new MimeBodyPart();
-//
-//            // Now set the actual message
-//            messageBodyPart.setText("This is message body");
-//
-//            // Create a multipar message
-//            Multipart multipart = new MimeMultipart();
-//
-//            // Set text message part
-//            multipart.addBodyPart(messageBodyPart);
-//
-//            // Part two is attachment
-//            messageBodyPart = new MimeBodyPart();
-//            String filename = "/home/manisha/file.txt";
-//            DataSource source = new FileDataSource(filename);
-//            messageBodyPart.setDataHandler(new DataHandler(source));
-//            messageBodyPart.setFileName(filename);
-//            multipart.addBodyPart(messageBodyPart);
-//
-//            // Send the complete message parts
-//            message.setContent(multipart);
-//
-//            // Send message
-//            Transport.send(message);
-//
-//            System.out.println("Sent message successfully....");
-//
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        // Generate actual email
+        // Create object and set fields
+        this.message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(this.senderID));
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(this.receiverID));
+        // TODO - Set proper values
+        message.setSubject("Availability Generator Subject Test");
+
+        // Create body of message
+        BodyPart messageBodyPart = new MimeBodyPart();
+        // TODO - set proper value
+        messageBodyPart.setText("Availability Generator Text Test");
+
+        // Format message for attachment
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+        // - Reuse messageBodyPart
+        messageBodyPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(this.filename);
+        messageBodyPart.setDataHandler(new DataHandler(source));
+        messageBodyPart.setFileName(filename);
+        multipart.addBodyPart(messageBodyPart);
+
+        // Complete message creation
+        message.setContent(multipart);
     }
 
+    public void sendEmail() throws MessagingException{
+        Transport.send(message);
+    }
+
+    /**
+     * Create and return a default properties object
+     * @return Custom properties object
+     */
     public Properties defaultProperties(){
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");

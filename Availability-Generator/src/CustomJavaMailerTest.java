@@ -26,6 +26,6 @@ public class CustomJavaMailerTest {
                 .fileName("TestFile.txt")
                 .build();
         customJavaMailer.generateEmail();
-        customJavaMailer.sendEmail();
+        // customJavaMailer.sendEmail();
     }
 }

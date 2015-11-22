@@ -80,7 +80,7 @@ public class WorkDay {
      */
     @Override
     public String toString(){
-        // Generate String of 1s and 0s from time slot array of size 31
+        // Generate String of true and false from time slot array of size 31
         StringBuilder builder = new StringBuilder(31);
         // Iterate through timeSlots and append each element as strings to builder
         this.timeSlots.forEach(builder::append);

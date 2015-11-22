@@ -18,7 +18,6 @@ import javafx.stage.Stage;
  * @author Ryan Harrington
  * Availability Generator
  */
-
 public class AvailabilityGenerator extends Application {
 
     @Override

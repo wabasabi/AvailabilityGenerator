@@ -3,3 +3,6 @@ JavaMail API Example: http://www.tutorialspoint.com/javamail_api/javamail_api_se
 Using Java Apache POI:
   - Awful Java Excel R/W Example: http://examples.javacodegeeks.com/core-java/writeread-excel-files-in-java-example/
   - Better Excel Example: http://howtodoinjava.com/2013/06/19/readingwriting-excel-files-in-java-poi-tutorial/
+  
+Java Fx - Look and Feel article
+  - http://www.guigarage.com/2013/01/this-is-for-the-native-ones/
